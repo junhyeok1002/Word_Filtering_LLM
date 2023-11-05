@@ -71,10 +71,10 @@ html, body, [class*="css"]  {
 header{visibility: hidden;}
 footer {visibility: hidden;}
 
-/* 하단 채팅창 바텀 패딩 없애기 */
-.st-emotion-cache-j7ljls {
-    padding-bottom: 1rem;
-}
+/*!* 하단 채팅창 바텀 패딩 없애기 *!*/
+/*.st-emotion-cache-j7ljls {*/
+/*    padding-bottom: 1rem;*/
+/*}*/
 /* Expander 바텀 패딩 없애기 */
 .st-emotion-cache-1clstc5 {
     padding-bottom: 0;

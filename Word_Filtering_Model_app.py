@@ -77,8 +77,3 @@ if User_question != None :
         filtered_message.write("여기다가 결과를 씨부려~")
         filtered_message.markdown(f'<p class="Hahmlet">{GPT_answer}</p>', unsafe_allow_html=True)
         filtered_message.write("\n")
-
-
-
-
-
