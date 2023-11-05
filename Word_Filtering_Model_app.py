@@ -2,6 +2,8 @@ import time
 
 import openai
 import streamlit as st
+from PIL import Image
+
 
 
 openai.api_key = st.secrets["SECRET_KEY_GPT"]
@@ -71,9 +73,15 @@ if User_question != None :
 
         my_bar = Loading()
         my_bar.empty()
-        filtered_message = st.chat_message("user", avatar = "⏹️")
+
+        image = Image.open('./image/chat_bot_icon.jpg')
+        filtered_message = st.chat_message("user", avatar = image)
         filtered_message.markdown(f'<p class="Hahmlet_Bold3">After Filtering</p>', unsafe_allow_html=True)
         filtered_message.write("")
         filtered_message.write("여기다가 결과를 씨부려~")
         filtered_message.markdown(f'<p class="Hahmlet">{GPT_answer}</p>', unsafe_allow_html=True)
         filtered_message.write("\n")
+
+else :
+    main_image = Image.open('./image/main.jpg')
+    st.image(main_image)
