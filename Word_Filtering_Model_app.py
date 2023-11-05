@@ -83,5 +83,24 @@ if User_question != None :
         filtered_message.write("\n")
 
 else :
-    main_image = Image.open('./image/main.jpg')
-    st.image(main_image)
+    with st.form("my_form"):
+        ex1 = st.chat_message("human", avatar="user")
+        ex1.markdown(f'<p class="Hahmlet_Bold1">User</p>', unsafe_allow_html=True)
+        ex1.write("")
+        ex1.markdown(f'<p class="Hahmlet">EX) 감염 경로를 알 수 없는 확진자를 뭐라고 불러?</p>', unsafe_allow_html=True)
+        ex1.write("\n")
+
+        ex2 = st.chat_message("human", avatar="ai")
+        ex2.markdown(f'<p class="Hahmlet_Bold2">Chat-GPT</p>', unsafe_allow_html=True)
+        ex2.write("")
+        ex2.markdown(f'<p class="Hahmlet">EX) 깜깜이 확진자라고 합니다!</p>', unsafe_allow_html=True)
+        ex2.write("\n")
+
+        image = Image.open('./image/chat_bot_icon.jpg')
+        ex3 = st.chat_message("user", avatar = image)
+        ex3.markdown(f'<p class="Hahmlet_Bold3">After Filtering</p>', unsafe_allow_html=True)
+        ex3.write("")
+        ex3.markdown(f'<p class="Hahmlet">EX) 시각장애인을 고려하지 못한 표현인데... ㅠㅠ </p>', unsafe_allow_html=True)
+        ex3.write("\n")
+
+        st.form_submit_button("아래의 채팅창으로 질문해보세요",use_container_width=True,type = "primary")
