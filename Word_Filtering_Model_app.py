@@ -1,9 +1,8 @@
 import time
-
 import openai
 import streamlit as st
 from PIL import Image
-
+import requests
 
 
 openai.api_key = st.secrets["SECRET_KEY_GPT"]
@@ -35,6 +34,21 @@ def Loading():
     time.sleep(1)
     return my_bar
 
+def predict_request(string):
+    local_server_link = 'https://d828-163-239-255-166.ngrok-free.app'
+    flask_endpoint = f'{local_server_link}/predict/{string}'
+    # flask_endpoint = f'http://127.0.0.1:5000/predict/{string}'
+    # Flask 서버에 GET 요청 보내기
+    response = requests.get(flask_endpoint)
+
+    if response.status_code == 200:
+        result = response.text
+        return result
+    else:
+        result = 'Failed to communicate with Flask server.'
+        return result
+
+
 Apply_CSS_Style()
 
 
@@ -63,7 +77,7 @@ if User_question != None :
     #     my_bar.progress(percent_complete + 1, text=progress_text)
     # time.sleep(1)
 
-    GPT_answer = chat_GPT(User_question)
+    GPT_answer =  chat_GPT(User_question)
 
     if GPT_answer != None:
         my_bar.empty()
@@ -78,12 +92,15 @@ if User_question != None :
         filtered_message = st.chat_message("user", avatar = image)
         filtered_message.markdown(f'<p class="Hahmlet_Bold3">After Filtering</p>', unsafe_allow_html=True)
         filtered_message.write("")
-        filtered_message.write("여기다가 결과를 씨부려~")
-        filtered_message.markdown(f'<p class="Hahmlet">{GPT_answer}</p>', unsafe_allow_html=True)
+        filtered_answer = predict_request(GPT_answer)
+        filtered_message.markdown(f'<p class="Hahmlet">{filtered_answer}</p>', unsafe_allow_html=True)
         filtered_message.write("\n")
+
+
 
 else :
     with st.form("my_form"):
+        image = Image.open('./image/chat_bot_icon.jpg')
         ex1 = st.chat_message("human", avatar="user")
         ex1.markdown(f'<p class="Hahmlet_Bold1">User</p>', unsafe_allow_html=True)
         ex1.write("")
@@ -96,7 +113,6 @@ else :
         ex2.markdown(f'<p class="Hahmlet">EX) 깜깜이 확진자라고 합니다!</p>', unsafe_allow_html=True)
         ex2.write("\n")
 
-        image = Image.open('./image/chat_bot_icon.jpg')
         ex3 = st.chat_message("user", avatar = image)
         ex3.markdown(f'<p class="Hahmlet_Bold3">After Filtering</p>', unsafe_allow_html=True)
         ex3.write("")
