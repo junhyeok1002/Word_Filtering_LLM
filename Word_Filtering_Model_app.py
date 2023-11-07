@@ -126,5 +126,5 @@ else :
 
         st.form_submit_button("아래의 채팅창으로 질문해보세요",use_container_width=True,type = "primary")
 
-    for i in range(5):
+    for i in range(10):
         st.write("")
