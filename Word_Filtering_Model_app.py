@@ -56,6 +56,9 @@ User_question = st.chat_input(placeholder= "질문을 주시면 Chat-GPT가 답�
 
 st.markdown(f'<p class="Hahmlet_Title">언어 감수성 분석</p>', unsafe_allow_html=True)
 st.divider()
+option = st.selectbox(
+    '질문 대상을 선택해주세요',
+    ('Chat_GPT', 'Filtering_Model'), label_visibility = "collapsed")
 
 if User_question != None :
     user_message = st.chat_message("human", avatar="user")
@@ -64,40 +67,40 @@ if User_question != None :
     user_message.markdown(f'<p class="Hahmlet">{User_question}</p>', unsafe_allow_html=True)
     user_message.write("\n")
 
-    # GPT의 답변
-    gpt_message = st.chat_message("human", avatar = "ai")
-    gpt_message.markdown(f'<p class="Hahmlet_Bold2">Chat-GPT</p>', unsafe_allow_html=True)
-    gpt_message.write("")
+    if option == 'Chat_GPT':
+        # GPT의 답변
+        gpt_message = st.chat_message("human", avatar = "ai")
+        gpt_message.markdown(f'<p class="Hahmlet_Bold2">Chat-GPT</p>', unsafe_allow_html=True)
+        gpt_message.write("")
 
-    my_bar = Loading()
-    # progress_text = "Operation in progress. Please wait."
-    # my_bar = st.progress(0, text=progress_text)
-    # for percent_complete in range(100):
-    #     time.sleep(0.01)
-    #     my_bar.progress(percent_complete + 1, text=progress_text)
-    # time.sleep(1)
+        my_bar = Loading()
+        GPT_answer = chat_GPT(User_question)
+    else :
+        GPT_answer = User_question
 
-    GPT_answer =  chat_GPT(User_question)
 
     if GPT_answer != None:
-        my_bar.empty()
-        gpt_message.markdown(f'<p class="Hahmlet">{GPT_answer}</p>', unsafe_allow_html=True)
-        gpt_message.write("\n")
+        if option == 'Chat_GPT' :
+            my_bar.empty()
+            gpt_message.markdown(f'<p class="Hahmlet">{GPT_answer}</p>', unsafe_allow_html=True)
+            gpt_message.write("\n")
 
 
         my_bar = Loading()
 
         filtered_answer = -1
-        image = Image.open('./image/chat_bot_icon.jpg')
-        filtered_message = st.chat_message("user", avatar = image)
-        filtered_message.markdown(f'<p class="Hahmlet_Bold3">After Filtering</p>', unsafe_allow_html=True)
-        filtered_message.write("")
         filtered_answer = predict_request(GPT_answer)
         if filtered_answer != -1 :
+            image = Image.open('./image/chat_bot_icon.jpg')
             my_bar.empty()
+            filtered_message = st.chat_message("user", avatar=image)
+            filtered_message.markdown(f'<p class="Hahmlet_Bold3">After Filtering</p>', unsafe_allow_html=True)
+            filtered_message.write("")
+
             filtered_message.markdown(f'<p class="Hahmlet">{filtered_answer}</p>', unsafe_allow_html=True)
             filtered_message.write("\n")
-
+    for i in range(10):
+        st.write("")
 
 
 else :
