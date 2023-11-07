@@ -86,15 +86,17 @@ if User_question != None :
 
 
         my_bar = Loading()
-        my_bar.empty()
 
+        filtered_answer = -1
         image = Image.open('./image/chat_bot_icon.jpg')
         filtered_message = st.chat_message("user", avatar = image)
         filtered_message.markdown(f'<p class="Hahmlet_Bold3">After Filtering</p>', unsafe_allow_html=True)
         filtered_message.write("")
         filtered_answer = predict_request(GPT_answer)
-        filtered_message.markdown(f'<p class="Hahmlet">{filtered_answer}</p>', unsafe_allow_html=True)
-        filtered_message.write("\n")
+        if filtered_answer != -1 :
+            my_bar.empty()
+            filtered_message.markdown(f'<p class="Hahmlet">{filtered_answer}</p>', unsafe_allow_html=True)
+            filtered_message.write("\n")
 
 
 
