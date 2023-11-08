@@ -58,7 +58,7 @@ st.markdown(f'<p class="Hahmlet_Title">언어 감수성 분석</p>', unsafe_allo
 st.divider()
 option = st.selectbox(
     '질문 대상을 선택해주세요',
-    ('Chat_GPT', 'Filtering_Model'), label_visibility = "collapsed")
+    ('질문->GPT답변->필터링', '직접입력->필터링'), label_visibility = "collapsed")
 
 if User_question != None :
     user_message = st.chat_message("human", avatar="user")
@@ -67,7 +67,7 @@ if User_question != None :
     user_message.markdown(f'<p class="Hahmlet">{User_question}</p>', unsafe_allow_html=True)
     user_message.write("\n")
 
-    if option == 'Chat_GPT':
+    if option == '질문->GPT답변->필터링':
         # GPT의 답변
         gpt_message = st.chat_message("human", avatar = "ai")
         gpt_message.markdown(f'<p class="Hahmlet_Bold2">Chat-GPT</p>', unsafe_allow_html=True)
@@ -80,7 +80,7 @@ if User_question != None :
 
 
     if GPT_answer != None:
-        if option == 'Chat_GPT' :
+        if option == '질문->GPT답변->필터링' :
             my_bar.empty()
             gpt_message.markdown(f'<p class="Hahmlet">{GPT_answer}</p>', unsafe_allow_html=True)
             gpt_message.write("\n")
