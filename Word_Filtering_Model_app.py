@@ -35,7 +35,7 @@ def Loading():
     return my_bar
 
 def predict_request(string):
-    local_server_link = 'https://4643-163-239-255-162.ngrok-free.app'
+    local_server_link = 'https://eb73-218-234-41-180.ngrok-free.app'
     flask_endpoint = f'{local_server_link}/predict/{string}'
     # flask_endpoint = f'http://127.0.0.1:5000/predict/{string}'
     # Flask 서버에 GET 요청 보내기
